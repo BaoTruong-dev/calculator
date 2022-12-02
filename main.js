@@ -11,6 +11,9 @@ inputRow.addEventListener('keyup', (e) => {
     let value = e.currentTarget.value;
 
     if (value) {
+        if (value > 50) {
+            inputRow.value = 50;
+        }
         [...Array(Number(value))].forEach(e => {
             return htmlRow += `
             <div class="content__calculator--item">

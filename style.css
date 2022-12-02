@@ -6,12 +6,24 @@
 }
 
 body {
+  position: relative;
   min-width: 100vw;
   min-height: 100vh;
-  background: url("https://images.unsplash.com/photo-1468657988500-aca2be09f4c6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80") center center no-repeat;
+  background: url("https://scontent.fsgn2-5.fna.fbcdn.net/v/t1.15752-9/272935809_518744889525477_4300418832653312774_n.png?stp=dst-png_p1080x2048&_nc_cat=104&ccb=1-7&_nc_sid=ae9488&_nc_ohc=eB4s1RseCGEAX_tPorH&_nc_ht=scontent.fsgn2-5.fna&oh=03_AdTGqlgqPIu2mvl_LXrlpGinau48BUheJ2m6XZrhMXdeHQ&oe=63B1996D") center center no-repeat;
   background-size: cover;
   color: white;
   overflow-x: hidden;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 100vw;
+  min-height: 100vh;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .mainWrapper {
