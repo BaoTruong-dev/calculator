@@ -44,7 +44,7 @@ body {
 }
 
 .list {
-  padding: 0 105px;
+  text-align: center;
 }
 .list ul li {
   margin-top: 40px;
