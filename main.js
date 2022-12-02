@@ -3,43 +3,13 @@ let inputRow = document.querySelector('.inputRow');
 let list = document.querySelector('.list ul');
 let buttonSum = document.querySelector('.content__button button');
 let contentWrapper = document.querySelector('.content__calculator');
-
-
 let htmlRow = '';
-let arrayName = [];
-inputRow.addEventListener('keyup', (e) => {
-    let value = e.currentTarget.value;
+let arrayName = JSON.parse(localStorage.getItem('list')) || [];
 
-    if (value) {
-        if (value > 50) {
-            inputRow.value = 50;
-        }
-        [...Array(Number(value))].forEach(e => {
-            return htmlRow += `
-            <div class="content__calculator--item">
-         <input type="number" class="inputMoney" placeholder="Nhập số tiền">
-     <input type="number" placeholder="Tỉ lệ phần trăm"
-                                  class="inputPercent">
-                          </div>
-    `;
-        });
-    } else {
-        htmlRow = '';
-
-    }
-
-    contentWrapper.innerHTML = htmlRow;
-
-});
-
-const handleDelete = (index) => {
-    let html;
-    arrayName = arrayName.filter(e => e !== arrayName[index]);
-    if (arrayName.length <= 0) {
-        list.innerHTML = '';
-    } else {
-        arrayName.forEach((e, index) => {
-            return html += `
+window.addEventListener("load", () => {
+    let html = '';
+    arrayName.forEach((e, index) => {
+        return html += `
                                         <li>
                                 <p class="name">
                                     ${e.name}
@@ -50,7 +20,58 @@ const handleDelete = (index) => {
                                 </p>
                             </li>
             `;
+    });
+    list.innerHTML = html;
+});
+
+inputRow.addEventListener('keyup', (e) => {
+    let value = e.currentTarget.value;
+    if (value) {
+        if (value > 50) {
+            inputRow.value = 50;
+        } else {
+            [...Array(Number(value))].forEach(e => {
+                return htmlRow += `
+            <div class="content__calculator--item">
+         <input type="number" class="inputMoney" placeholder="Nhập số tiền">
+     <input type="number" placeholder="Tỉ lệ phần trăm"
+                                  class="inputPercent">
+                          </div>
+    `;
+            });
+        }
+
+    } else {
+        htmlRow = '';
+
+    }
+
+    contentWrapper.innerHTML = htmlRow;
+
+});
+
+const handleDelete = (index) => {
+    let html = '';
+    arrayName = arrayName.filter(e => e !== arrayName[index]);
+    localStorage.setItem('list', JSON.stringify(arrayName));
+    if (arrayName.length <= 0) {
+        list.innerHTML = '';
+        localStorage.clear();
+    } else {
+        arrayName.forEach((e, index) => {
+            return html += `
+                            <li>
+                                <p class="name">
+                                    ${e.name}
+                                    <span onclick="handleDelete(${index})">X</span>
+                                </p>
+                                <p class="money" >
+                                    ${e.money} K
+                                </p>
+                            </li>
+            `;
         });
+        console.log(html);
         list.innerHTML = html;
     }
 
@@ -77,6 +98,7 @@ buttonSum.addEventListener('click', () => {
             name: inputName.value,
             money: sum
         });
+        localStorage.setItem('list', JSON.stringify(arrayName));
         arrayName.forEach((e, index) => {
             return html += `
                                         <li>
